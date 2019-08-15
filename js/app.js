@@ -39,8 +39,13 @@ Enemy.prototype.handleCollision = function() {
 class Hero {
     constructor(){
         this.sprite = 'images/char-boy.png';
-        this.x = 2;
-        this.y = 5;
+        this.xMove = 101; // 101 is width of each column, distance to next column
+        this.yMove = 83; // 83 is height of each row, distance to next row
+        this.xStart = this.xMove * 2;
+        this.yStart = (this.yMove * 5) - 25;
+        this.x = this.xStart;
+        this.y = this.yStart;
+
     }
 
     update() {
@@ -54,13 +59,21 @@ class Hero {
 
     handleInput(keyInput) {
         if (keyInput == 'left') {
-            this.x -= 30;
+            if (this.x > 0) {
+                this.x -= this.xMove;
+            }
         } else if (keyInput == 'right') {
-            this.x += 30;
+            if (this.x < 404) {
+                this.x += this.xMove;
+            }
         } else if (keyInput == 'up') {
-            this.y -= 30;
+            if (this.y > 0) {
+                this.y -= this.yMove;
+            }
         } else if (keyInput == 'down') {
-            this.y += 30;
+            if (this.y < 390) {
+                this.y += this.yMove;
+            }
         }
     }
 
