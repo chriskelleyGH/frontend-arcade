@@ -37,12 +37,9 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
 Enemy.prototype.handleCollision = function() {
     // handle collision with the player
 }
-
-
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -61,8 +58,7 @@ class Hero {
     }
 
     update() {
-
-
+        // ?
     }
 
     render() {
@@ -87,6 +83,17 @@ class Hero {
                 this.y += this.yMove;
             }
         }
+
+        if (this.y == -25) {
+            this.reset();
+        }
+
+    }
+
+// Move player back to start position
+    reset() {
+        this.x = this.xStart;
+        this.y = this.yStart;
     }
 
     handleCollision() {
@@ -94,7 +101,6 @@ class Hero {
     }
 
 }
-
 
 
 // Now instantiate your objects.
@@ -106,7 +112,6 @@ allEnemies.push(enemy1);
 
 // Place the player object in a variable called player
 const player = new Hero();
-
 
 
 // This listens for key presses and sends the keys to your
