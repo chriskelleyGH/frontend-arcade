@@ -39,8 +39,8 @@ Enemy.prototype.handleCollision = function() {
 class Hero {
     constructor(){
         this.sprite = 'images/char-boy.png';
-        this.x = 0;
-        this.y = 0;
+        this.x = 2;
+        this.y = 5;
     }
 
     update() {
@@ -52,8 +52,16 @@ class Hero {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    handleInput() {
-
+    handleInput(keyInput) {
+        if (keyInput == 'left') {
+            this.x -= 30;
+        } else if (keyInput == 'right') {
+            this.x += 30;
+        } else if (keyInput == 'up') {
+            this.y -= 30;
+        } else if (keyInput == 'down') {
+            this.y += 30;
+        }
     }
 
     handleCollision() {
