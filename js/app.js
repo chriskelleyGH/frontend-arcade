@@ -23,14 +23,13 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += (this.xMove * this.speed) * dt;
 
-    if (this.y == player.y && Math.trunc(this.x) == player.x) {
+    if (this.y == player.y && (Math.trunc(this.x) + this.xMove/2 > player.x && this.x < player.x + player.xMove/2)) {
         player.reset();
     }
 
     if (this.x > 505) { // if enemy is off the screen, reset to start position
         this.reset();
     }
-
 };
 
 Enemy.prototype.reset = function() {
@@ -41,7 +40,6 @@ Enemy.prototype.reset = function() {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -114,7 +112,7 @@ class Hero {
 
 // Now instantiate your objects.
 const enemy1 = new Enemy();
-enemy1.speed = 3;
+enemy1.speed = 1;
 
 // Place all enemy objects in an array called allEnemies
 const allEnemies = []
