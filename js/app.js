@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,11 +8,11 @@ var Enemy = function() {
     this.xMove = 101; // 101 is width of each column, distance to next column
     this.yMove = 83; // 83 is height of each row, distance to next row
     this.xStart = -202; // start two xMoves off of the screen
-    this.yStart = (this.yMove * 1) - 25; // Start on 2nd row, top row of roadway
+    // this.yStart = (this.yMove * 1) - 25; // Start on 2nd row, top row of roadway
     this.x = this.xStart;
-    this.y = this.yStart;
+    this.y = (this.yMove * y) - 25;
     this.sprite = 'images/enemy-bug.png';
-    this.speed = 1; // Set the enemy's speed
+    this.speed = speed; // Set the enemy's speed
 };
 
 // Update the enemy's position, required method for game
@@ -109,14 +109,15 @@ class Hero {
 
 }
 
-
-// Now instantiate your objects.
-const enemy1 = new Enemy();
-enemy1.speed = 1;
+// Now instantiate your objects. (row, speed)
+const enemy1 = new Enemy(1, 5);
+const enemy2 = new Enemy(2, 2);
+const enemy3 = new Enemy(3, 3);
+const enemy4 = new Enemy(4, 4);
 
 // Place all enemy objects in an array called allEnemies
 const allEnemies = []
-allEnemies.push(enemy1);
+allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
 // Place the player object in a variable called player
 const player = new Hero();
