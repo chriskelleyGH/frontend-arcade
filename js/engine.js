@@ -68,6 +68,25 @@ var Engine = (function(global) {
         main();
     }
 
+    /*
+    function checkCollisions() {
+
+        for (enemy in allEnemies){
+
+          /*
+          console.log("enemy x: " + enemy.x);
+          console.log("player x: " + player.x);
+          console.log("enemy y: " + enemy.y);
+          console.log("player y: " + player.y);
+
+
+            if (enemy.x == player.x && enemy.y == player.y) {
+                player.reset();
+            }
+        }
+    }
+    */
+
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
      * you implement your collision detection (when two entities occupy the
@@ -107,11 +126,11 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
+                'images/grass-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
                 'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
+                'images/stone-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,

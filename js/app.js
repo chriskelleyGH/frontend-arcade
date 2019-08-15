@@ -12,7 +12,7 @@ var Enemy = function() {
     this.x = this.xStart;
     this.y = this.yStart;
     this.sprite = 'images/enemy-bug.png';
-    this.speed = 0; // Set the enemy's speed
+    this.speed = 1; // Set the enemy's speed
 };
 
 // Update the enemy's position, required method for game
@@ -21,7 +21,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += this.xMove * dt;
+    this.x += (this.xMove * this.speed) * dt;
+
+    if (this.y == player.y && Math.trunc(this.x) == player.x) {
+        player.reset();
+    }
+
     if (this.x > 505) { // if enemy is off the screen, reset to start position
         this.reset();
     }
@@ -37,9 +42,6 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Enemy.prototype.handleCollision = function() {
-    // handle collision with the player
-}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -58,7 +60,8 @@ class Hero {
     }
 
     update() {
-        // ?
+        // Win and play again message
+        //this.reset();
     }
 
     render() {
@@ -84,27 +87,34 @@ class Hero {
             }
         }
 
-        if (this.y == -25) {
-            this.reset();
+        // Check to see if the water has been reached.
+        if (this.y < 0) {
+            this.update();
+            console.log("You Win");
         }
-
     }
 
-// Move player back to start position
+
+    // Move player back to start position
     reset() {
         this.x = this.xStart;
         this.y = this.yStart;
     }
 
-    handleCollision() {
+/*
 
+    // If there is a collision with the enemy
+    handleCollision() {
+        this.reset();
     }
+*/
 
 }
 
 
 // Now instantiate your objects.
 const enemy1 = new Enemy();
+enemy1.speed = 3;
 
 // Place all enemy objects in an array called allEnemies
 const allEnemies = []
