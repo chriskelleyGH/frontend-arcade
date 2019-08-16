@@ -8,7 +8,6 @@ var Enemy = function(y, speed) {
     this.xMove = 101; // 101 is width of each column, distance to next column
     this.yMove = 83; // 83 is height of each row, distance to next row
     this.xStart = -202; // start two xMoves off of the screen
-    // this.yStart = (this.yMove * 1) - 25; // Start on 2nd row, top row of roadway
     this.x = this.xStart;
     this.y = (this.yMove * y) - 25;
     this.sprite = 'images/enemy-bug.png';
@@ -57,13 +56,13 @@ class Hero {
 
     }
 
-    update() {
-        // Win and play again message
-        //this.reset();
-    }
-
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+    winGame() {
+        const modal = document.querySelector(".modal");
+        modal.classList.toggle("show-modal");
     }
 
     handleInput(keyInput) {
@@ -85,53 +84,49 @@ class Hero {
             }
         }
 
-        // Check to see if the water has been reached.
+        // Check to see if the other side of the road has been reached.
         if (this.y < 0) {
-            this.update();
-            console.log("You Win");
+            this.winGame();
         }
     }
-
 
     // Move player back to start position
     reset() {
         this.x = this.xStart;
         this.y = this.yStart;
     }
-
-/*
-
-    // If there is a collision with the enemy
-    handleCollision() {
-        this.reset();
-    }
-*/
-
 }
 
-// Now instantiate your objects. (row, speed)
 const enemy1 = new Enemy(1, 5);
 const enemy2 = new Enemy(2, 2);
 const enemy3 = new Enemy(3, 3);
 const enemy4 = new Enemy(4, 4);
-
-// Place all enemy objects in an array called allEnemies
 const allEnemies = []
 allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
-// Place the player object in a variable called player
 const player = new Hero();
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+    const modal = document.querySelector(".modal");
+    if (!modal.classList.contains('show-modal')) { // Check to make sure model is not open
+        var allowedKeys = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+        };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+        player.handleInput(allowedKeys[e.keyCode]);
+    }
+});
+
+// This listens for the modal button to restart the game
+document.addEventListener('click', function(event) {
+    const modal = document.querySelector(".modal");
+    if(event.target.matches('.modal-close')) { // If the modal is closed
+        modal.classList.toggle("show-modal");
+        player.reset();
+    }
 });
