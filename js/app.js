@@ -55,47 +55,48 @@ class Hero {
         this.y = this.yStart;
 
     }
+}
 
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
+Hero.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
 
-    winGame() {
-        const modal = document.querySelector(".modal");
-        modal.classList.toggle("show-modal");
-    }
+Hero.prototype.winGame = function () {
+    const modal = document.querySelector(".modal");
+    modal.classList.toggle("show-modal");
+}
 
-    handleInput(keyInput) {
-        if (keyInput == 'left') {
-            if (this.x > 0) {
-                this.x -= this.xMove;
-            }
-        } else if (keyInput == 'right') {
-            if (this.x < 404) {
-                this.x += this.xMove;
-            }
-        } else if (keyInput == 'up') {
-            if (this.y > 0) {
-                this.y -= this.yMove;
-            }
-        } else if (keyInput == 'down') {
-            if (this.y < 390) {
-                this.y += this.yMove;
-            }
+Hero.prototype.handleInput = function(keyInput) {
+    if (keyInput == 'left') {
+        if (this.x > 0) {
+            this.x -= this.xMove;
         }
-
-        // Check to see if the other side of the road has been reached.
-        if (this.y < 0) {
-            this.winGame();
+    } else if (keyInput == 'right') {
+        if (this.x < 404) {
+            this.x += this.xMove;
+        }
+    } else if (keyInput == 'up') {
+        if (this.y > 0) {
+            this.y -= this.yMove;
+        }
+    } else if (keyInput == 'down') {
+        if (this.y < 390) {
+            this.y += this.yMove;
         }
     }
 
-    // Move player back to start position
-    reset() {
-        this.x = this.xStart;
-        this.y = this.yStart;
+    // Check to see if the other side of the road has been reached.
+    if (this.y < 0) {
+        this.winGame();
     }
 }
+
+Hero.prototype.reset = function() {
+    // Move player back to start position
+    this.x = this.xStart;
+    this.y = this.yStart;
+}
+
 
 const enemy1 = new Enemy(1, 5);
 const enemy2 = new Enemy(2, 2);
